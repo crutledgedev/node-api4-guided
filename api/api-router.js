@@ -23,7 +23,7 @@ router.get('/shouts', (req, res, next) => {
 router.post('/shouts', (req, res, next) => {
   Shouts.add(req.body)
     .then(shout => {
-      res.status(201).json({ motd: process.env.MOTD, shout });
+      res.status(201).json({ motd: process.env.MOTD, shouts });
     })
     .catch(error => next(error));
 });
