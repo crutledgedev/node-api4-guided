@@ -7,7 +7,9 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', (req, res) => {
-  res.status(200).json({ api: 'up' });
+  const environment = process.env;
+  const port = process.env.PORT || 5000;
+  res.status(200).json({ api: 'up', port, environment });
 });
 
 router.get('/shouts', (req, res, next) => {
@@ -21,7 +23,7 @@ router.get('/shouts', (req, res, next) => {
 router.post('/shouts', (req, res, next) => {
   Shouts.add(req.body)
     .then(shout => {
-      res.status(201).json(shout);
+      res.status(201).json({ motd: process.env.MOTD, shout });
     })
     .catch(error => next(error));
 });
